@@ -1,167 +1,212 @@
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { Progress } from "@/components/ui/progress"
-import { Users, Clock, Calendar, TrendingUp, UserCheck, UserX, DollarSign, FileText } from "lucide-react"
+import { Button } from "@/components/ui/button"
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
+import { Users, UserCheck, UserX, Building2, Clock, Filter, Download } from "lucide-react"
+import { useState, useEffect } from "react"
 
 export function Dashboard() {
+  const [currentTime, setCurrentTime] = useState(new Date())
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentTime(new Date())
+    }, 1000)
+
+    return () => clearInterval(timer)
+  }, [])
+
+  const formatTime = (date: Date) => {
+    return date.toLocaleTimeString('en-US', { 
+      hour12: false,
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit'
+    })
+  }
+
   const stats = [
     {
       title: "Total Employees",
-      value: "247",
-      change: "+12%",
-      changeType: "positive" as const,
+      value: "24",
+      change: "+2 this month",
       icon: Users,
-      color: "text-blue-600"
+      bgColor: "bg-purple-500/10",
+      iconColor: "text-purple-400"
     },
     {
       title: "Present Today",
-      value: "234",
-      change: "94.7%",
-      changeType: "positive" as const,
+      value: "22",
+      change: "91.7% attendance",
       icon: UserCheck,
-      color: "text-green-600"
+      bgColor: "bg-green-500/10",
+      iconColor: "text-green-400"
     },
     {
       title: "On Leave",
-      value: "13",
-      change: "-2%",
-      changeType: "negative" as const,
-      icon: Calendar,
-      color: "text-orange-600"
+      value: "2",
+      change: "3 pending requests",
+      icon: UserX,
+      bgColor: "bg-orange-500/10",
+      iconColor: "text-orange-400"
     },
     {
-      title: "Pending Requests",
+      title: "Departments",
       value: "8",
-      change: "+3",
-      changeType: "neutral" as const,
-      icon: Clock,
-      color: "text-purple-600"
+      change: "Active teams",
+      icon: Building2,
+      bgColor: "bg-blue-500/10",
+      iconColor: "text-blue-400"
     }
   ]
 
-  const recentActivities = [
-    { name: "John Smith", action: "submitted leave request", time: "2 hours ago", type: "leave" },
-    { name: "Sarah Johnson", action: "checked in", time: "3 hours ago", type: "attendance" },
-    { name: "Mike Brown", action: "updated profile", time: "5 hours ago", type: "profile" },
-    { name: "Emily Davis", action: "submitted timesheet", time: "1 day ago", type: "timesheet" },
-  ]
-
-  const upcomingEvents = [
-    { title: "Team Meeting", date: "Today, 2:00 PM", type: "meeting" },
-    { title: "Performance Reviews", date: "Tomorrow", type: "review" },
-    { title: "Training Session", date: "Friday, 10:00 AM", type: "training" },
+  const recentActivity = [
+    {
+      employee: "Alice Smith",
+      position: "Senior Developer",
+      department: "Engineering",
+      status: "PRESENT",
+      checkIn: "09:15 AM",
+      checkOut: "--:--",
+      avatar: "AS"
+    },
+    {
+      employee: "Bob Johnson",
+      position: "Project Manager",
+      department: "Operations",
+      status: "PRESENT",
+      checkIn: "08:45 AM",
+      checkOut: "--:--",
+      avatar: "BJ"
+    },
+    {
+      employee: "Carol Davis",
+      position: "UX Designer",
+      department: "Design",
+      status: "ON LEAVE",
+      checkIn: "--:--",
+      checkOut: "--:--",
+      avatar: "CD"
+    },
   ]
 
   return (
     <div className="space-y-6">
-      <div>
-        <h1 className="text-3xl font-bold tracking-tight">Dashboard</h1>
-        <p className="text-muted-foreground">Welcome back! Here's what's happening in your organization.</p>
-      </div>
-
       {/* Stats Cards */}
-      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
         {stats.map((stat) => (
-          <Card key={stat.title} className="hover:shadow-md transition-shadow">
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">{stat.title}</CardTitle>
-              <stat.icon className={`h-4 w-4 ${stat.color}`} />
-            </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold">{stat.value}</div>
-              <p className="text-xs text-muted-foreground">
-                <Badge 
-                  variant={stat.changeType === 'positive' ? 'default' : stat.changeType === 'negative' ? 'destructive' : 'secondary'}
-                  className="text-xs"
-                >
-                  {stat.change}
-                </Badge>
-                {" "}from last month
-              </p>
+          <Card key={stat.title} className="bg-card border-border">
+            <CardContent className="p-6">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-sm font-medium text-muted-foreground mb-2">{stat.title}</p>
+                  <p className="text-3xl font-bold text-foreground">{stat.value}</p>
+                  <p className="text-sm text-primary mt-1">{stat.change}</p>
+                </div>
+                <div className={`p-3 rounded-lg ${stat.bgColor}`}>
+                  <stat.icon className={`h-6 w-6 ${stat.iconColor}`} />
+                </div>
+              </div>
             </CardContent>
           </Card>
         ))}
       </div>
 
-      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7">
-        {/* Recent Activities */}
-        <Card className="col-span-4">
-          <CardHeader>
-            <CardTitle>Recent Activities</CardTitle>
-            <CardDescription>Latest updates from your team</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-4">
-              {recentActivities.map((activity, index) => (
-                <div key={index} className="flex items-center space-x-4">
-                  <div className="flex-shrink-0">
-                    <div className={`w-2 h-2 rounded-full ${
-                      activity.type === 'leave' ? 'bg-orange-500' :
-                      activity.type === 'attendance' ? 'bg-green-500' :
-                      activity.type === 'profile' ? 'bg-blue-500' :
-                      'bg-purple-500'
-                    }`} />
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <p className="text-sm font-medium text-gray-900">
-                      <span className="font-semibold">{activity.name}</span> {activity.action}
-                    </p>
-                    <p className="text-sm text-gray-500">{activity.time}</p>
-                  </div>
-                </div>
-              ))}
+      {/* Clock In/Out Section */}
+      <Card className="bg-card border-border">
+        <CardContent className="p-8">
+          <div className="flex items-center justify-center space-x-8">
+            <div className="text-center">
+              <div className="text-4xl font-mono text-primary mb-4">
+                {formatTime(currentTime)}
+              </div>
             </div>
-          </CardContent>
-        </Card>
-
-        {/* Upcoming Events */}
-        <Card className="col-span-3">
-          <CardHeader>
-            <CardTitle>Upcoming Events</CardTitle>
-            <CardDescription>Don't miss these important events</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-4">
-              {upcomingEvents.map((event, index) => (
-                <div key={index} className="flex items-center space-x-4">
-                  <div className="flex-shrink-0">
-                    <Calendar className="h-4 w-4 text-muted-foreground" />
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <p className="text-sm font-medium">{event.title}</p>
-                    <p className="text-xs text-muted-foreground">{event.date}</p>
-                  </div>
-                </div>
-              ))}
+            <div className="flex space-x-4">
+              <Button className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-3">
+                <Clock className="h-4 w-4 mr-2" />
+                Clock In
+              </Button>
+              <Button variant="outline" className="border-primary text-primary hover:bg-primary/10 px-8 py-3">
+                <Clock className="h-4 w-4 mr-2" />
+                Clock Out
+              </Button>
             </div>
-          </CardContent>
-        </Card>
-      </div>
+          </div>
+        </CardContent>
+      </Card>
 
-      {/* Department Overview */}
-      <Card>
+      {/* Recent Activity */}
+      <Card className="bg-card border-border">
         <CardHeader>
-          <CardTitle>Department Overview</CardTitle>
-          <CardDescription>Employee distribution across departments</CardDescription>
+          <div className="flex items-center justify-between">
+            <div>
+              <CardTitle className="text-foreground">Recent Activity</CardTitle>
+            </div>
+            <div className="flex gap-2">
+              <Button variant="outline" size="sm" className="border-border text-muted-foreground">
+                <Filter className="h-4 w-4 mr-2" />
+                Filter
+              </Button>
+              <Button variant="outline" size="sm" className="border-border text-muted-foreground">
+                <Download className="h-4 w-4 mr-2" />
+                Export
+              </Button>
+            </div>
+          </div>
         </CardHeader>
         <CardContent>
-          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-            {[
-              { name: "Engineering", count: 78, total: 85, color: "bg-blue-500" },
-              { name: "Sales", count: 45, total: 50, color: "bg-green-500" },
-              { name: "Marketing", count: 32, total: 35, color: "bg-purple-500" },
-              { name: "HR", count: 12, total: 15, color: "bg-orange-500" },
-            ].map((dept) => (
-              <div key={dept.name} className="space-y-2">
-                <div className="flex justify-between text-sm">
-                  <span className="font-medium">{dept.name}</span>
-                  <span className="text-muted-foreground">{dept.count}/{dept.total}</span>
-                </div>
-                <Progress value={(dept.count / dept.total) * 100} className="h-2" />
-              </div>
-            ))}
-          </div>
+          <Table>
+            <TableHeader>
+              <TableRow className="border-border hover:bg-muted/50">
+                <TableHead className="text-muted-foreground">EMPLOYEE</TableHead>
+                <TableHead className="text-muted-foreground">DEPARTMENT</TableHead>
+                <TableHead className="text-muted-foreground">STATUS</TableHead>
+                <TableHead className="text-muted-foreground">CHECK IN</TableHead>
+                <TableHead className="text-muted-foreground">CHECK OUT</TableHead>
+                <TableHead className="text-muted-foreground">ACTIONS</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {recentActivity.map((activity, index) => (
+                <TableRow key={index} className="border-border hover:bg-muted/30">
+                  <TableCell>
+                    <div className="flex items-center space-x-3">
+                      <div className="w-8 h-8 bg-primary rounded-full flex items-center justify-center">
+                        <span className="text-primary-foreground text-xs font-medium">
+                          {activity.avatar}
+                        </span>
+                      </div>
+                      <div>
+                        <div className="font-medium text-foreground">{activity.employee}</div>
+                        <div className="text-sm text-muted-foreground">{activity.position}</div>
+                      </div>
+                    </div>
+                  </TableCell>
+                  <TableCell className="text-muted-foreground">{activity.department}</TableCell>
+                  <TableCell>
+                    <Badge 
+                      variant={activity.status === 'PRESENT' ? 'default' : 'secondary'}
+                      className={
+                        activity.status === 'PRESENT' 
+                          ? 'bg-green-500/20 text-green-400 border-green-500/30' 
+                          : 'bg-orange-500/20 text-orange-400 border-orange-500/30'
+                      }
+                    >
+                      {activity.status}
+                    </Badge>
+                  </TableCell>
+                  <TableCell className="text-foreground">{activity.checkIn}</TableCell>
+                  <TableCell className="text-foreground">{activity.checkOut}</TableCell>
+                  <TableCell>
+                    <Button variant="ghost" size="sm" className="text-primary hover:bg-primary/10">
+                      Edit
+                    </Button>
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
         </CardContent>
       </Card>
     </div>
