@@ -3,29 +3,9 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
-import { Users, UserCheck, UserX, Building2, Clock, Filter, Download } from "lucide-react"
-import { useState, useEffect } from "react"
+import { Users, UserCheck, UserX, Building2, Filter, Download } from "lucide-react"
 
 export function Dashboard() {
-  const [currentTime, setCurrentTime] = useState(new Date())
-
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setCurrentTime(new Date())
-    }, 1000)
-
-    return () => clearInterval(timer)
-  }, [])
-
-  const formatTime = (date: Date) => {
-    return date.toLocaleTimeString('en-US', { 
-      hour12: false,
-      hour: '2-digit',
-      minute: '2-digit',
-      second: '2-digit'
-    })
-  }
-
   const stats = [
     {
       title: "Total Employees",
@@ -112,29 +92,6 @@ export function Dashboard() {
           </Card>
         ))}
       </div>
-
-      {/* Clock In/Out Section */}
-      <Card className="bg-card border-border">
-        <CardContent className="p-8">
-          <div className="flex items-center justify-center space-x-8">
-            <div className="text-center">
-              <div className="text-4xl font-mono text-primary mb-4">
-                {formatTime(currentTime)}
-              </div>
-            </div>
-            <div className="flex space-x-4">
-              <Button className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-3">
-                <Clock className="h-4 w-4 mr-2" />
-                Clock In
-              </Button>
-              <Button variant="outline" className="border-primary text-primary hover:bg-primary/10 px-8 py-3">
-                <Clock className="h-4 w-4 mr-2" />
-                Clock Out
-              </Button>
-            </div>
-          </div>
-        </CardContent>
-      </Card>
 
       {/* Recent Activity */}
       <Card className="bg-card border-border">
