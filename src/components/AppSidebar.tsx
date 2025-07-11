@@ -55,10 +55,14 @@ export function AppSidebar() {
     <Sidebar className="border-r border-border">
       <SidebarHeader className="p-6">
         <div className="flex items-center space-x-3">
-          <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
-            <span className="text-primary-foreground font-bold text-sm">W</span>
+          <div className="w-8 h-8 flex items-center justify-center">
+            <img 
+              src="/lovable-uploads/6dfd7a45-214e-4ad9-aae0-64cebb3d63e3.png" 
+              alt="CiD Logo" 
+              className="w-8 h-8 object-contain"
+            />
           </div>
-          <span className="text-xl font-semibold text-foreground">WorkFlow</span>
+          <span className="text-xl font-semibold text-foreground">CiD</span>
         </div>
       </SidebarHeader>
 
