@@ -1,5 +1,5 @@
 
-import { Reports } from "@/components/Reports";
+import Reports from "@/components/Reports";
 
 const ReportsPage = () => {
   return <Reports />;
