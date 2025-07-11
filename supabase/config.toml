@@ -1,1 +1,5 @@
+
 project_id = "dobhyirwsfwgridbsapx"
+
+[functions.send-leave-notification]
+verify_jwt = false
