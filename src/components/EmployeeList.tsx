@@ -7,6 +7,7 @@ import { Badge } from "@/components/ui/badge"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Search, Filter, Plus, Mail, Phone, MapPin, Edit, Trash2 } from "lucide-react"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import { AddEmployeeDialog } from "./AddEmployeeDialog"
 
 interface Employee {
   id: number
@@ -21,7 +22,7 @@ interface Employee {
   joinDate: string
 }
 
-const employees: Employee[] = [
+const initialEmployees: Employee[] = [
   {
     id: 1,
     name: "John Smith",
@@ -91,9 +92,11 @@ const employees: Employee[] = [
 ]
 
 export function EmployeeList() {
+  const [employees, setEmployees] = useState<Employee[]>(initialEmployees)
   const [searchTerm, setSearchTerm] = useState("")
   const [filterDepartment, setFilterDepartment] = useState("all")
   const [filterStatus, setFilterStatus] = useState("all")
+  const [isAddDialogOpen, setIsAddDialogOpen] = useState(false)
 
   const filteredEmployees = employees.filter(employee => {
     const matchesSearch = employee.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -105,6 +108,10 @@ export function EmployeeList() {
 
     return matchesSearch && matchesDepartment && matchesStatus
   })
+
+  const handleAddEmployee = (newEmployee: any) => {
+    setEmployees(prev => [...prev, newEmployee])
+  }
 
   const getStatusColor = (status: string) => {
     switch (status) {
@@ -126,7 +133,7 @@ export function EmployeeList() {
           <h1 className="text-3xl font-bold tracking-tight">Employees</h1>
           <p className="text-muted-foreground">Manage your organization's workforce</p>
         </div>
-        <Button className="flex items-center gap-2">
+        <Button className="flex items-center gap-2" onClick={() => setIsAddDialogOpen(true)}>
           <Plus className="h-4 w-4" />
           Add Employee
         </Button>
@@ -244,6 +251,12 @@ export function EmployeeList() {
           </CardContent>
         </Card>
       )}
+
+      <AddEmployeeDialog 
+        open={isAddDialogOpen}
+        onOpenChange={setIsAddDialogOpen}
+        onEmployeeAdded={handleAddEmployee}
+      />
     </div>
   )
 }
