@@ -75,9 +75,14 @@ export type Database = {
           created_at: string | null
           department: string
           email: string
+          emergency_contact_name: string | null
+          emergency_contact_phone: string | null
+          emergency_contact_relation: string | null
           employee_id: string
+          employee_number: string | null
           first_name: string
           hire_date: string
+          home_address: string | null
           id: string
           last_name: string
           position: string
@@ -90,9 +95,14 @@ export type Database = {
           created_at?: string | null
           department: string
           email: string
+          emergency_contact_name?: string | null
+          emergency_contact_phone?: string | null
+          emergency_contact_relation?: string | null
           employee_id: string
+          employee_number?: string | null
           first_name: string
           hire_date: string
+          home_address?: string | null
           id?: string
           last_name: string
           position: string
@@ -105,9 +115,14 @@ export type Database = {
           created_at?: string | null
           department?: string
           email?: string
+          emergency_contact_name?: string | null
+          emergency_contact_phone?: string | null
+          emergency_contact_relation?: string | null
           employee_id?: string
+          employee_number?: string | null
           first_name?: string
           hire_date?: string
+          home_address?: string | null
           id?: string
           last_name?: string
           position?: string

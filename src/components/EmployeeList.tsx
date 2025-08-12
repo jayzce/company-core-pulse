@@ -8,6 +8,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Search, Filter, Plus, Mail, Phone, MapPin, Edit, Trash2 } from "lucide-react"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { AddEmployeeDialog } from "./AddEmployeeDialog"
+import { useToast } from "@/hooks/use-toast"
 
 interface Employee {
   id: number
@@ -97,6 +98,7 @@ export function EmployeeList() {
   const [filterDepartment, setFilterDepartment] = useState("all")
   const [filterStatus, setFilterStatus] = useState("all")
   const [isAddDialogOpen, setIsAddDialogOpen] = useState(false)
+  const { toast } = useToast()
 
   const filteredEmployees = employees.filter(employee => {
     const matchesSearch = employee.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -109,9 +111,16 @@ export function EmployeeList() {
     return matchesSearch && matchesDepartment && matchesStatus
   })
 
-  const handleAddEmployee = (newEmployee: any) => {
-    setEmployees(prev => [...prev, newEmployee])
+const handleAddEmployee = (newEmployee: any) => {
+  setEmployees(prev => [...prev, newEmployee])
+}
+
+const handleDeleteEmployee = (id: number) => {
+  if (window.confirm("Delete this employee?")) {
+    setEmployees(prev => prev.filter(e => e.id !== id))
+    toast({ title: "Employee removed", description: "The employee has been removed." })
   }
+}
 
   const getStatusColor = (status: string) => {
     switch (status) {
@@ -235,7 +244,7 @@ export function EmployeeList() {
                 <Button variant="outline" size="sm">
                   <Edit className="h-4 w-4" />
                 </Button>
-                <Button variant="outline" size="sm">
+                <Button variant="outline" size="sm" onClick={() => handleDeleteEmployee(employee.id)}>
                   <Trash2 className="h-4 w-4" />
                 </Button>
               </div>

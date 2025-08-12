@@ -7,6 +7,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog"
 import { Plus } from "lucide-react"
 import { useToast } from "@/hooks/use-toast"
+import { Textarea } from "@/components/ui/textarea"
 
 interface AddEmployeeDialogProps {
   open: boolean
@@ -24,7 +25,13 @@ export function AddEmployeeDialog({ open, onOpenChange, onEmployeeAdded }: AddEm
     department: "",
     position: "",
     location: "",
-    salary: ""
+    salary: "",
+    employeeNumber: "",
+    homeAddress: "",
+    hireDate: "",
+    emergencyContactName: "",
+    emergencyContactRelation: "",
+    emergencyContactPhone: ""
   })
 
   const handleInputChange = (field: string, value: string) => {
@@ -35,7 +42,7 @@ export function AddEmployeeDialog({ open, onOpenChange, onEmployeeAdded }: AddEm
     e.preventDefault()
     
     // Basic validation
-    if (!formData.firstName || !formData.lastName || !formData.email || !formData.department || !formData.position) {
+    if (!formData.firstName || !formData.lastName || !formData.email || !formData.department || !formData.position || !formData.hireDate) {
       toast({
         title: "Validation Error",
         description: "Please fill in all required fields",
@@ -54,8 +61,14 @@ export function AddEmployeeDialog({ open, onOpenChange, onEmployeeAdded }: AddEm
       position: formData.position,
       status: "Active" as const,
       location: formData.location || "Remote",
-      joinDate: new Date().toISOString().split('T')[0],
-      salary: parseFloat(formData.salary) || 0
+      joinDate: formData.hireDate,
+      salary: parseFloat(formData.salary) || 0,
+      employeeNumber: formData.employeeNumber,
+      homeAddress: formData.homeAddress,
+      hireDate: formData.hireDate,
+      emergencyContactName: formData.emergencyContactName,
+      emergencyContactRelation: formData.emergencyContactRelation,
+      emergencyContactPhone: formData.emergencyContactPhone,
     }
 
     onEmployeeAdded(newEmployee)
@@ -69,7 +82,13 @@ export function AddEmployeeDialog({ open, onOpenChange, onEmployeeAdded }: AddEm
       department: "",
       position: "",
       location: "",
-      salary: ""
+      salary: "",
+      employeeNumber: "",
+      homeAddress: "",
+      hireDate: "",
+      emergencyContactName: "",
+      emergencyContactRelation: "",
+      emergencyContactPhone: ""
     })
 
     onOpenChange(false)
