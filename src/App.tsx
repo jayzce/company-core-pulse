@@ -45,6 +45,11 @@ const AppHeader = () => {
         </div>
         
         <div className="flex items-center gap-3">
+          <img 
+            src="/lovable-uploads/ada25724-f9d7-49ac-ae15-88e025efd287.png" 
+            alt="CiDCore Logo" 
+            className="h-8 w-auto object-contain"
+          />
           <div className="w-8 h-8 bg-primary rounded-full flex items-center justify-center">
             <span className="text-primary-foreground font-medium text-sm">
               {user?.email?.charAt(0).toUpperCase() || 'U'}

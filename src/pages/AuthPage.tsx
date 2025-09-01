@@ -128,7 +128,13 @@ const AuthPage = () => {
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100 p-4">
       <Card className="w-full max-w-md">
         <CardHeader className="text-center">
-          <CardTitle className="text-2xl font-bold text-gray-900">HRIS System</CardTitle>
+          <div className="flex justify-center mb-4">
+            <img 
+              src="/lovable-uploads/ada25724-f9d7-49ac-ae15-88e025efd287.png" 
+              alt="CiDCore Logo" 
+              className="h-16 w-auto object-contain"
+            />
+          </div>
           <CardDescription>Human Resource Information System</CardDescription>
         </CardHeader>
         <CardContent>
