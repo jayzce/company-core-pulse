@@ -7,7 +7,7 @@ export type Json =
   | Json[]
 
 export type Database = {
-  // Allows to automatically instanciate createClient with right options
+  // Allows to automatically instantiate createClient with right options
   // instead of createClient<Database, { PostgrestVersion: 'XX' }>(URL, KEY)
   __InternalSupabase: {
     PostgrestVersion: "12.2.3 (519615d)"
@@ -72,60 +72,81 @@ export type Database = {
       }
       employees: {
         Row: {
+          contact_number: string | null
           created_at: string | null
           department: string
           email: string
+          emergency_contact_address: string | null
           emergency_contact_name: string | null
           emergency_contact_phone: string | null
           emergency_contact_relation: string | null
           employee_id: string
           employee_number: string | null
+          employment_details: string | null
           first_name: string
           hire_date: string
           home_address: string | null
           id: string
+          immediate_supervisor: string | null
           last_name: string
           position: string
+          previous_company_address: string | null
+          previous_company_name: string | null
+          previous_employer: string | null
           profile_id: string | null
           salary: number
           status: string | null
           updated_at: string | null
         }
         Insert: {
+          contact_number?: string | null
           created_at?: string | null
           department: string
           email: string
+          emergency_contact_address?: string | null
           emergency_contact_name?: string | null
           emergency_contact_phone?: string | null
           emergency_contact_relation?: string | null
           employee_id: string
           employee_number?: string | null
+          employment_details?: string | null
           first_name: string
           hire_date: string
           home_address?: string | null
           id?: string
+          immediate_supervisor?: string | null
           last_name: string
           position: string
+          previous_company_address?: string | null
+          previous_company_name?: string | null
+          previous_employer?: string | null
           profile_id?: string | null
           salary: number
           status?: string | null
           updated_at?: string | null
         }
         Update: {
+          contact_number?: string | null
           created_at?: string | null
           department?: string
           email?: string
+          emergency_contact_address?: string | null
           emergency_contact_name?: string | null
           emergency_contact_phone?: string | null
           emergency_contact_relation?: string | null
           employee_id?: string
           employee_number?: string | null
+          employment_details?: string | null
           first_name?: string
           hire_date?: string
           home_address?: string | null
           id?: string
+          immediate_supervisor?: string | null
           last_name?: string
           position?: string
+          previous_company_address?: string | null
+          previous_company_name?: string | null
+          previous_employer?: string | null
           profile_id?: string | null
           salary?: number
           status?: string | null

@@ -1,22 +1,46 @@
-
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog"
-import { Plus } from "lucide-react"
-import { useToast } from "@/hooks/use-toast"
 import { Textarea } from "@/components/ui/textarea"
+import { Edit } from "lucide-react"
+import { useToast } from "@/hooks/use-toast"
 import { supabase } from "@/integrations/supabase/client"
 
-interface AddEmployeeDialogProps {
-  open: boolean
-  onOpenChange: (open: boolean) => void
-  onEmployeeAdded: () => void
+interface Employee {
+  id: string
+  employee_number?: string
+  first_name: string
+  last_name: string
+  email: string
+  department: string
+  position: string
+  status: string
+  hire_date: string
+  salary?: number
+  home_address?: string
+  emergency_contact_name?: string
+  emergency_contact_relation?: string
+  emergency_contact_phone?: string
+  emergency_contact_address?: string
+  previous_employer?: string
+  previous_company_name?: string
+  previous_company_address?: string
+  contact_number?: string
+  employment_details?: string
+  immediate_supervisor?: string
 }
 
-export function AddEmployeeDialog({ open, onOpenChange, onEmployeeAdded }: AddEmployeeDialogProps) {
+interface EditEmployeeDialogProps {
+  employee: Employee
+  open: boolean
+  onOpenChange: (open: boolean) => void
+  onEmployeeUpdated: () => void
+}
+
+export function EditEmployeeDialog({ employee, open, onOpenChange, onEmployeeUpdated }: EditEmployeeDialogProps) {
   const { toast } = useToast()
   const [formData, setFormData] = useState({
     firstName: "",
@@ -29,6 +53,7 @@ export function AddEmployeeDialog({ open, onOpenChange, onEmployeeAdded }: AddEm
     employeeNumber: "",
     homeAddress: "",
     hireDate: "",
+    status: "",
     emergencyContactName: "",
     emergencyContactRelation: "",
     emergencyContactPhone: "",
@@ -40,6 +65,33 @@ export function AddEmployeeDialog({ open, onOpenChange, onEmployeeAdded }: AddEm
     immediateSupervisor: ""
   })
 
+  useEffect(() => {
+    if (employee) {
+      setFormData({
+        firstName: employee.first_name || "",
+        lastName: employee.last_name || "",
+        email: employee.email || "",
+        contactNumber: employee.contact_number || "",
+        department: employee.department || "",
+        position: employee.position || "",
+        salary: employee.salary?.toString() || "",
+        employeeNumber: employee.employee_number || "",
+        homeAddress: employee.home_address || "",
+        hireDate: employee.hire_date || "",
+        status: employee.status || "",
+        emergencyContactName: employee.emergency_contact_name || "",
+        emergencyContactRelation: employee.emergency_contact_relation || "",
+        emergencyContactPhone: employee.emergency_contact_phone || "",
+        emergencyContactAddress: employee.emergency_contact_address || "",
+        previousEmployer: employee.previous_employer || "",
+        previousCompanyName: employee.previous_company_name || "",
+        previousCompanyAddress: employee.previous_company_address || "",
+        employmentDetails: employee.employment_details || "",
+        immediateSupervisor: employee.immediate_supervisor || ""
+      })
+    }
+  }, [employee])
+
   const handleInputChange = (field: string, value: string) => {
     setFormData(prev => ({ ...prev, [field]: value }))
   }
@@ -47,7 +99,6 @@ export function AddEmployeeDialog({ open, onOpenChange, onEmployeeAdded }: AddEm
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     
-    // Basic validation
     if (!formData.firstName || !formData.lastName || !formData.email || !formData.department || !formData.position || !formData.hireDate) {
       toast({
         title: "Validation Error",
@@ -60,8 +111,7 @@ export function AddEmployeeDialog({ open, onOpenChange, onEmployeeAdded }: AddEm
     try {
       const { error } = await supabase
         .from('employees')
-        .insert([{
-          employee_id: formData.employeeNumber || `EMP-${Date.now()}`, // Generate ID if not provided
+        .update({
           first_name: formData.firstName,
           last_name: formData.lastName,
           email: formData.email,
@@ -72,7 +122,7 @@ export function AddEmployeeDialog({ open, onOpenChange, onEmployeeAdded }: AddEm
           employee_number: formData.employeeNumber,
           home_address: formData.homeAddress,
           hire_date: formData.hireDate,
-          status: 'active',
+          status: formData.status,
           emergency_contact_name: formData.emergencyContactName,
           emergency_contact_relation: formData.emergencyContactRelation,
           emergency_contact_phone: formData.emergencyContactPhone,
@@ -82,46 +132,23 @@ export function AddEmployeeDialog({ open, onOpenChange, onEmployeeAdded }: AddEm
           previous_company_address: formData.previousCompanyAddress,
           employment_details: formData.employmentDetails,
           immediate_supervisor: formData.immediateSupervisor
-        }])
+        })
+        .eq('id', employee.id)
 
       if (error) throw error
 
-      onEmployeeAdded()
-      
-      // Reset form
-      setFormData({
-        firstName: "",
-        lastName: "",
-        email: "",
-        contactNumber: "",
-        department: "",
-        position: "",
-        salary: "",
-        employeeNumber: "",
-        homeAddress: "",
-        hireDate: "",
-        emergencyContactName: "",
-        emergencyContactRelation: "",
-        emergencyContactPhone: "",
-        emergencyContactAddress: "",
-        previousEmployer: "",
-        previousCompanyName: "",
-        previousCompanyAddress: "",
-        employmentDetails: "",
-        immediateSupervisor: ""
-      })
-
+      onEmployeeUpdated()
       onOpenChange(false)
       
       toast({
         title: "Success",
-        description: "Employee added successfully",
+        description: "Employee updated successfully",
       })
     } catch (error) {
-      console.error('Error adding employee:', error)
+      console.error('Error updating employee:', error)
       toast({
         title: "Error",
-        description: "Failed to add employee",
+        description: "Failed to update employee",
         variant: "destructive"
       })
     }
@@ -132,11 +159,11 @@ export function AddEmployeeDialog({ open, onOpenChange, onEmployeeAdded }: AddEm
       <DialogContent className="sm:max-w-[600px] max-h-[90vh] overflow-y-auto">
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2">
-            <Plus className="h-5 w-5" />
-            Add New Employee
+            <Edit className="h-5 w-5" />
+            Edit Employee
           </DialogTitle>
           <DialogDescription>
-            Fill in the employee information below to add them to the system.
+            Update the employee information below.
           </DialogDescription>
         </DialogHeader>
         
@@ -151,7 +178,6 @@ export function AddEmployeeDialog({ open, onOpenChange, onEmployeeAdded }: AddEm
                   id="firstName"
                   value={formData.firstName}
                   onChange={(e) => handleInputChange("firstName", e.target.value)}
-                  placeholder="John"
                   required
                 />
               </div>
@@ -161,7 +187,6 @@ export function AddEmployeeDialog({ open, onOpenChange, onEmployeeAdded }: AddEm
                   id="lastName"
                   value={formData.lastName}
                   onChange={(e) => handleInputChange("lastName", e.target.value)}
-                  placeholder="Doe"
                   required
                 />
               </div>
@@ -175,7 +200,6 @@ export function AddEmployeeDialog({ open, onOpenChange, onEmployeeAdded }: AddEm
                   type="email"
                   value={formData.email}
                   onChange={(e) => handleInputChange("email", e.target.value)}
-                  placeholder="john.doe@company.com"
                   required
                 />
               </div>
@@ -185,7 +209,6 @@ export function AddEmployeeDialog({ open, onOpenChange, onEmployeeAdded }: AddEm
                   id="contactNumber"
                   value={formData.contactNumber}
                   onChange={(e) => handleInputChange("contactNumber", e.target.value)}
-                  placeholder="+1 (555) 123-4567"
                 />
               </div>
             </div>
@@ -211,9 +234,24 @@ export function AddEmployeeDialog({ open, onOpenChange, onEmployeeAdded }: AddEm
                   id="employeeNumber"
                   value={formData.employeeNumber}
                   onChange={(e) => handleInputChange("employeeNumber", e.target.value)}
-                  placeholder="EMP-001"
                 />
               </div>
+              <div className="space-y-2">
+                <Label htmlFor="status">Status</Label>
+                <Select value={formData.status} onValueChange={(value) => handleInputChange("status", value)}>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select status" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="active">Active</SelectItem>
+                    <SelectItem value="inactive">Inactive</SelectItem>
+                    <SelectItem value="on leave">On Leave</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-2 gap-4">
               <div className="space-y-2">
                 <Label htmlFor="department">Department *</Label>
                 <Select value={formData.department} onValueChange={(value) => handleInputChange("department", value)}>
@@ -230,19 +268,18 @@ export function AddEmployeeDialog({ open, onOpenChange, onEmployeeAdded }: AddEm
                   </SelectContent>
                 </Select>
               </div>
-            </div>
-
-            <div className="grid grid-cols-2 gap-4">
               <div className="space-y-2">
                 <Label htmlFor="position">Position *</Label>
                 <Input
                   id="position"
                   value={formData.position}
                   onChange={(e) => handleInputChange("position", e.target.value)}
-                  placeholder="Software Engineer"
                   required
                 />
               </div>
+            </div>
+
+            <div className="grid grid-cols-2 gap-4">
               <div className="space-y-2">
                 <Label htmlFor="hireDate">Hire Date *</Label>
                 <Input
@@ -253,17 +290,15 @@ export function AddEmployeeDialog({ open, onOpenChange, onEmployeeAdded }: AddEm
                   required
                 />
               </div>
-            </div>
-
-            <div className="space-y-2">
-              <Label htmlFor="salary">Annual Salary ($)</Label>
-              <Input
-                id="salary"
-                type="number"
-                value={formData.salary}
-                onChange={(e) => handleInputChange("salary", e.target.value)}
-                placeholder="75000"
-              />
+              <div className="space-y-2">
+                <Label htmlFor="salary">Annual Salary ($)</Label>
+                <Input
+                  id="salary"
+                  type="number"
+                  value={formData.salary}
+                  onChange={(e) => handleInputChange("salary", e.target.value)}
+                />
+              </div>
             </div>
 
             <div className="space-y-2">
@@ -367,7 +402,7 @@ export function AddEmployeeDialog({ open, onOpenChange, onEmployeeAdded }: AddEm
               Cancel
             </Button>
             <Button type="submit">
-              Add Employee
+              Update Employee
             </Button>
           </DialogFooter>
         </form>
