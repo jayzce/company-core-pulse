@@ -15,6 +15,7 @@ import AuthPage from "@/pages/AuthPage";
 import Index from "./pages/Index";
 import EmployeesPage from "./pages/EmployeesPage";
 import AttendancePage from "./pages/AttendancePage";
+import LeaveRequestsPage from "./pages/LeaveRequestsPage";
 import ReportsPage from "./pages/ReportsPage";
 import SettingsPage from "./pages/SettingsPage";
 import NotFound from "./pages/NotFound";
@@ -87,6 +88,7 @@ const AppContent = () => (
             <Route path="/" element={<Index />} />
             <Route path="/employees" element={<EmployeesPage />} />
             <Route path="/attendance" element={<AttendancePage />} />
+            <Route path="/leave-requests" element={<LeaveRequestsPage />} />
             <Route path="/reports" element={<ReportsPage />} />
             <Route path="/settings" element={<SettingsPage />} />
             <Route path="*" element={<NotFound />} />

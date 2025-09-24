@@ -70,7 +70,10 @@ export default {
 				warning: {
 					DEFAULT: 'hsl(var(--warning))',
 					foreground: 'hsl(var(--warning-foreground))'
-				}
+				},
+				'approved-leave': 'hsl(var(--approved-leave))',
+				holiday: 'hsl(var(--holiday))',
+				'company-event': 'hsl(var(--company-event))'
 			},
 			borderRadius: {
 				lg: 'var(--radius)',

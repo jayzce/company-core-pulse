@@ -53,6 +53,11 @@ All colors MUST be HSL.
 
     --warning: 38 92% 50%;
     --warning-foreground: 210 30% 8%;
+
+    /* Calendar event colors */
+    --approved-leave: 101 100% 63%;
+    --holiday: 0 100% 52%;
+    --company-event: 316 100% 50%;
   }
 
   .dark {
