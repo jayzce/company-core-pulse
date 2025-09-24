@@ -3,7 +3,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
-import { Users, UserCheck, UserX, Building2, Filter, Download } from "lucide-react"
+import { Users, UserCheck, UserX, Building2, Filter, Download, UserPlus, FileText, Briefcase, GraduationCap } from "lucide-react"
 
 export function Dashboard() {
   const stats = [
@@ -38,6 +38,41 @@ export function Dashboard() {
       icon: Building2,
       bgColor: "bg-blue-500/10",
       iconColor: "text-blue-400"
+    }
+  ]
+
+  const hiringStats = [
+    {
+      title: "Applicants",
+      value: "12",
+      change: "5 new this week",
+      icon: UserPlus,
+      bgColor: "bg-emerald-500/10",
+      iconColor: "text-emerald-400"
+    },
+    {
+      title: "Job Offers",
+      value: "3",
+      change: "2 pending acceptance",
+      icon: FileText,
+      bgColor: "bg-cyan-500/10",
+      iconColor: "text-cyan-400"
+    },
+    {
+      title: "Onboarding",
+      value: "2",
+      change: "In progress",
+      icon: Briefcase,
+      bgColor: "bg-amber-500/10",
+      iconColor: "text-amber-400"
+    },
+    {
+      title: "Regularization",
+      value: "4",
+      change: "Due this month",
+      icon: GraduationCap,
+      bgColor: "bg-rose-500/10",
+      iconColor: "text-rose-400"
     }
   ]
 
@@ -76,6 +111,26 @@ export function Dashboard() {
       {/* Stats Cards */}
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
         {stats.map((stat) => (
+          <Card key={stat.title} className="bg-card border-border">
+            <CardContent className="p-6">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-sm font-medium text-muted-foreground mb-2">{stat.title}</p>
+                  <p className="text-3xl font-bold text-foreground">{stat.value}</p>
+                  <p className="text-sm text-primary mt-1">{stat.change}</p>
+                </div>
+                <div className={`p-3 rounded-lg ${stat.bgColor}`}>
+                  <stat.icon className={`h-6 w-6 ${stat.iconColor}`} />
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        ))}
+      </div>
+
+      {/* Hiring Process Stats */}
+      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+        {hiringStats.map((stat) => (
           <Card key={stat.title} className="bg-card border-border">
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
