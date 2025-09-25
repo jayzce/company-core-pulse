@@ -1,76 +1,138 @@
 
-import { Home, Users, Clock, FileText, ClipboardList, BarChart3, Settings } from "lucide-react"
+import { 
+  LayoutDashboard, 
+  Users, 
+  Clock, 
+  ClipboardList, 
+  FileText, 
+  DollarSign,
+  TrendingUp,
+  UserPlus,
+  GraduationCap,
+  BarChart3,
+  Building2,
+  User,
+  Settings,
+  Shield,
+  LogOut,
+  Grid3X3
+} from "lucide-react"
 import { NavLink } from "react-router-dom"
 import {
   Sidebar,
   SidebarContent,
   SidebarGroup,
   SidebarGroupContent,
+  SidebarGroupLabel,
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
   SidebarHeader,
 } from "@/components/ui/sidebar"
 
-const items = [
+const mainMenuItems = [
   {
     title: "Dashboard",
     url: "/",
-    icon: Home,
+    icon: Grid3X3,
   },
   {
-    title: "Employees",
+    title: "Employee",
     url: "/employees",
     icon: Users,
   },
   {
-    title: "Attendance",
+    title: "Time Attendance",
     url: "/attendance",
     icon: Clock,
   },
   {
-    title: "Leave Requests",
+    title: "Task",
     url: "/leave-requests",
     icon: ClipboardList,
   },
   {
-    title: "Reports",
+    title: "Payroll",
+    url: "/payroll",
+    icon: DollarSign,
+  },
+  {
+    title: "Reimbursement",
+    url: "/reimbursement",
+    icon: FileText,
+  },
+  {
+    title: "Performance",
+    url: "/performance",
+    icon: TrendingUp,
+  },
+  {
+    title: "Recruitment",
+    url: "/recruitment",
+    icon: UserPlus,
+  },
+  {
+    title: "Training",
+    url: "/training",
+    icon: GraduationCap,
+  },
+  {
+    title: "Report",
     url: "/reports",
     icon: BarChart3,
   },
   {
-    title: "Payroll",
-    url: "/payroll",
-    icon: FileText,
+    title: "Structure Organization",
+    url: "/organization",
+    icon: Building2,
+  },
+]
+
+const bottomMenuItems = [
+  {
+    title: "Profile",
+    url: "/profile",
+    icon: User,
   },
   {
-    title: "Settings",
+    title: "Setting",
     url: "/settings",
     icon: Settings,
+  },
+  {
+    title: "Permission",
+    url: "/permissions",
+    icon: Shield,
+  },
+  {
+    title: "Logout",
+    url: "/logout",
+    icon: LogOut,
   },
 ]
 
 export function AppSidebar() {
   return (
-    <Sidebar className="border-r border-border">
-      <SidebarHeader className="p-6">
+    <Sidebar className="bg-sidebar-background border-none">
+      <SidebarHeader className="p-6 border-b border-sidebar-border">
         <div className="flex items-center space-x-3">
-          <div className="w-8 h-8 flex items-center justify-center">
-            <img 
-              src="/lovable-uploads/6dfd7a45-214e-4ad9-aae0-64cebb3d63e3.png" 
-              alt="CiD Logo" 
-              className="w-8 h-8 object-contain"
-            />
+          <div className="w-10 h-10 bg-white rounded-lg flex items-center justify-center">
+            <Grid3X3 className="w-6 h-6 text-sidebar-background" />
           </div>
-          <span className="text-xl font-semibold text-foreground">CiD</span>
+          <div>
+            <div className="text-sidebar-foreground font-bold text-lg">HRIS</div>
+          </div>
         </div>
       </SidebarHeader>
 
-      <SidebarContent className="px-4 pb-4">
-        <SidebarGroup>
+      <SidebarContent className="px-4">
+        <SidebarGroup className="mt-4">
+          <SidebarGroupLabel className="text-sidebar-foreground/60 text-xs uppercase tracking-wider mb-4">
+            Menu
+          </SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu className="space-y-1">
-              {items.map((item) => (
+              {mainMenuItems.map((item) => (
                 <SidebarMenuItem key={item.title}>
                   <SidebarMenuButton asChild className="w-full">
                     <NavLink 
@@ -78,8 +140,37 @@ export function AppSidebar() {
                       className={({ isActive }) =>
                         `flex items-center gap-3 rounded-lg px-4 py-3 text-sm font-medium transition-all ${
                           isActive 
-                            ? "bg-primary text-primary-foreground"
-                            : "text-muted-foreground hover:bg-[hsl(174,77%,56%)] hover:bg-opacity-10 hover:text-[hsl(174,77%,56%)]"
+                            ? "bg-sidebar-accent text-sidebar-foreground shadow-sm"
+                            : "text-sidebar-foreground/80 hover:bg-sidebar-accent/50 hover:text-sidebar-foreground"
+                        }`
+                      }
+                    >
+                      <item.icon className="h-5 w-5" />
+                      {item.title}
+                    </NavLink>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
+              ))}
+            </SidebarMenu>
+          </SidebarGroupContent>
+        </SidebarGroup>
+
+        <SidebarGroup className="mt-8">
+          <SidebarGroupLabel className="text-sidebar-foreground/60 text-xs uppercase tracking-wider mb-4">
+            Menu
+          </SidebarGroupLabel>
+          <SidebarGroupContent>
+            <SidebarMenu className="space-y-1">
+              {bottomMenuItems.map((item) => (
+                <SidebarMenuItem key={item.title}>
+                  <SidebarMenuButton asChild className="w-full">
+                    <NavLink 
+                      to={item.url}
+                      className={({ isActive }) =>
+                        `flex items-center gap-3 rounded-lg px-4 py-3 text-sm font-medium transition-all ${
+                          isActive 
+                            ? "bg-sidebar-accent text-sidebar-foreground shadow-sm"
+                            : "text-sidebar-foreground/80 hover:bg-sidebar-accent/50 hover:text-sidebar-foreground"
                         }`
                       }
                     >

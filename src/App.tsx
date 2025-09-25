@@ -30,37 +30,27 @@ const AppHeader = () => {
   };
 
   return (
-    <header className="h-16 flex items-center justify-between border-b border-border bg-background px-6">
+    <header className="h-16 flex items-center justify-between bg-background px-6 border-b border-border">
       <div className="flex items-center gap-4">
-        <SidebarTrigger />
-        <h1 className="text-2xl font-semibold text-foreground">HRIS Dashboard</h1>
-      </div>
-      
-      <div className="flex items-center gap-4">
+        <SidebarTrigger className="text-foreground" />
         <div className="relative">
           <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
           <Input 
-            placeholder="Search employees, attendance..." 
-            className="pl-10 w-80 bg-input border-border"
+            placeholder="Looking for something?" 
+            className="pl-10 w-80 bg-background border-border rounded-full"
           />
         </div>
-        
+      </div>
+      
+      <div className="flex items-center gap-4">
         <div className="flex items-center gap-3">
-          <img 
-            src="/lovable-uploads/ada25724-f9d7-49ac-ae15-88e025efd287.png" 
-            alt="CiDCore Logo" 
-            className="h-8 w-auto object-contain"
-          />
           <div className="w-8 h-8 bg-primary rounded-full flex items-center justify-center">
             <span className="text-primary-foreground font-medium text-sm">
               {user?.email?.charAt(0).toUpperCase() || 'U'}
             </span>
           </div>
           <div className="text-right">
-            <div className="text-sm font-medium text-foreground">
-              {user?.email || 'User'}
-            </div>
-            <div className="text-xs text-muted-foreground">Administrator</div>
+            <div className="text-sm font-medium text-foreground">Profile</div>
           </div>
           <Button 
             variant="ghost" 
@@ -68,8 +58,7 @@ const AppHeader = () => {
             className="text-primary hover:bg-primary/10"
             onClick={handleLogout}
           >
-            <LogOut className="h-4 w-4 mr-2" />
-            Logout
+            <LogOut className="h-4 w-4" />
           </Button>
         </div>
       </div>
