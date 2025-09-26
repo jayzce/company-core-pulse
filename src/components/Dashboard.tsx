@@ -57,7 +57,7 @@ export function Dashboard() {
   return (
     <div className="min-h-screen bg-background">
       {/* Welcome Section with Calendar */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-4">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-2">
         {/* Welcome Card */}
         <div className="lg:col-span-2">
           <div className="relative bg-gradient-to-r from-primary via-primary to-primary/80 rounded-2xl p-8 overflow-hidden">
@@ -93,7 +93,6 @@ export function Dashboard() {
             <CardHeader className="flex flex-row items-center justify-between">
               <div className="flex items-center gap-2">
                 <ChevronLeft className="w-4 h-4" />
-                <span className="font-medium">April 2022</span>
                 <ChevronRight className="w-4 h-4" />
               </div>
             </CardHeader>
