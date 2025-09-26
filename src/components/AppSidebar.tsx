@@ -64,7 +64,7 @@ const mainMenuItems = [
     icon: BarChart3,
   },
   {
-    title: "Structure Organization",
+    title: "Organization",
     url: "/organization",
     icon: Building2,
   },
