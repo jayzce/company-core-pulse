@@ -43,7 +43,7 @@ All colors MUST be HSL.
     --sidebar-foreground: 210 40% 98%;
     --sidebar-primary: 210 40% 98%;
     --sidebar-primary-foreground: 245 58% 51%;
-    --sidebar-accent: 68 100% 50%; /* #DFFF00 */
+    --sidebar-accent: 300 100% 25%; /* #800080 */
     --sidebar-accent-foreground: 0 0% 0%;
     --sidebar-border: 245 58% 61%;
     --sidebar-ring: 210 40% 98%;
@@ -102,7 +102,7 @@ All colors MUST be HSL.
     --sidebar-foreground: 210 40% 98%;
     --sidebar-primary: 210 40% 98%;
     --sidebar-primary-foreground: 245 58% 51%;
-    --sidebar-accent: 68 100% 50%; /* #DFFF00 */
+    --sidebar-accent: 300 100% 25%; /* #800080 */
     --sidebar-accent-foreground: 0 0% 0%;
     --sidebar-border: 245 58% 61%;
     --sidebar-ring: 210 40% 98%;

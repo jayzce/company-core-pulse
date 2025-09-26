@@ -60,25 +60,25 @@ export function Dashboard() {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-2">
         {/* Welcome Card */}
         <div className="lg:col-span-2">
-          <div className="relative bg-gradient-to-r from-primary via-primary to-primary/80 rounded-2xl p-8 overflow-hidden">
+          <div className="relative bg-sidebar-background rounded-2xl p-8 overflow-hidden">
             <div className="absolute top-0 right-0 w-32 h-32 opacity-20">
               {/* Decorative lines */}
               <svg viewBox="0 0 100 100" className="w-full h-full">
-                <path d="M20,20 Q80,10 90,80" stroke="white" strokeWidth="2" fill="none" />
-                <path d="M10,40 Q70,30 80,90" stroke="white" strokeWidth="1" fill="none" />
+                <path d="M20,20 Q80,10 90,80" stroke="currentColor" strokeWidth="2" fill="none" />
+                <path d="M10,40 Q70,30 80,90" stroke="currentColor" strokeWidth="1" fill="none" />
               </svg>
             </div>
             <div className="flex items-center justify-between">
-              <div className="text-white">
+              <div className="text-sidebar-foreground">
                 <h1 className="text-3xl font-bold mb-2">Welcome, {userName}!</h1>
-                <p className="text-white/90 mb-6">You have 5 Pending task, lets see what you can do today!</p>
-                <Button className="bg-white text-primary hover:bg-white/90 rounded-lg px-6">
+                <p className="text-sidebar-foreground/90 mb-6">You have 5 Pending task, lets see what you can do today!</p>
+                <Button className="bg-sidebar-foreground text-sidebar-background hover:bg-sidebar-foreground/90 rounded-lg px-6">
                   Check Now
                 </Button>
               </div>
               <div className="hidden md:block">
                 <img 
-                  src="https://images.unsplash.com/photo-1494790108755-2616b612b786?w=200&h=200&fit=crop&crop=face" 
+                  src="/assets/professional-person.jpg" 
                   alt="Welcome" 
                   className="w-48 h-48 object-cover rounded-full"
                 />

@@ -93,11 +93,15 @@ export function AppSidebar() {
     <Sidebar className="bg-sidebar-background border-none">
       <SidebarHeader className="p-6 border-b border-sidebar-border">
         <div className="flex items-center space-x-3">
-          <div className="w-10 h-10 bg-white rounded-lg flex items-center justify-center">
-            <Grid3X3 className="w-6 h-6 text-sidebar-background" />
+          <div className="w-10 h-10 bg-white rounded-lg flex items-center justify-center p-1">
+            <img 
+              src="/assets/cidcore-logo.png" 
+              alt="CID Core" 
+              className="w-full h-full object-contain"
+            />
           </div>
           <div>
-            <div className="text-sidebar-foreground font-bold text-lg">HRIS</div>
+            <div className="text-sidebar-foreground font-bold text-lg">CID Core HRIS</div>
           </div>
         </div>
       </SidebarHeader>
