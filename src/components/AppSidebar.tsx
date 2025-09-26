@@ -5,15 +5,12 @@ import {
   Clock, 
   ClipboardList, 
   FileText, 
-  DollarSign,
+  Wallet,
   TrendingUp,
-  UserPlus,
-  GraduationCap,
   BarChart3,
   Building2,
   User,
   Settings,
-  Shield,
   LogOut,
   Grid3X3
 } from "lucide-react"
@@ -54,27 +51,12 @@ const mainMenuItems = [
   {
     title: "Payroll",
     url: "/payroll",
-    icon: DollarSign,
-  },
-  {
-    title: "Reimbursement",
-    url: "/reimbursement",
-    icon: FileText,
+    icon: Wallet,
   },
   {
     title: "Performance",
     url: "/performance",
     icon: TrendingUp,
-  },
-  {
-    title: "Recruitment",
-    url: "/recruitment",
-    icon: UserPlus,
-  },
-  {
-    title: "Training",
-    url: "/training",
-    icon: GraduationCap,
   },
   {
     title: "Report",
@@ -100,11 +82,6 @@ const bottomMenuItems = [
     icon: Settings,
   },
   {
-    title: "Permission",
-    url: "/permissions",
-    icon: Shield,
-  },
-  {
     title: "Logout",
     url: "/logout",
     icon: LogOut,
@@ -127,9 +104,6 @@ export function AppSidebar() {
 
       <SidebarContent className="px-4">
         <SidebarGroup className="mt-4">
-          <SidebarGroupLabel className="text-sidebar-foreground/60 text-xs uppercase tracking-wider mb-4">
-            Menu
-          </SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu className="space-y-1">
               {mainMenuItems.map((item) => (
@@ -156,9 +130,6 @@ export function AppSidebar() {
         </SidebarGroup>
 
         <SidebarGroup className="mt-8">
-          <SidebarGroupLabel className="text-sidebar-foreground/60 text-xs uppercase tracking-wider mb-4">
-            Menu
-          </SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu className="space-y-1">
               {bottomMenuItems.map((item) => (

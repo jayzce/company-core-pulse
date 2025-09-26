@@ -57,7 +57,7 @@ export function Dashboard() {
   return (
     <div className="min-h-screen bg-background">
       {/* Welcome Section with Calendar */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-8">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-4">
         {/* Welcome Card */}
         <div className="lg:col-span-2">
           <div className="relative bg-gradient-to-r from-primary via-primary to-primary/80 rounded-2xl p-8 overflow-hidden">
@@ -274,65 +274,6 @@ export function Dashboard() {
             </Card>
           </div>
 
-          {/* Who's Online Table */}
-          <Card>
-            <CardHeader className="flex flex-row items-center justify-between">
-              <CardTitle>Who's Online?</CardTitle>
-              <Button variant="ghost" size="icon">
-                <span className="sr-only">More options</span>
-                <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                  <path d="M10 6a2 2 0 110-4 2 2 0 010 4zM10 12a2 2 0 110-4 2 2 0 010 4zM10 18a2 2 0 110-4 2 2 0 010 4z" />
-                </svg>
-              </Button>
-            </CardHeader>
-            <CardContent>
-              <div className="overflow-x-auto">
-                <table className="w-full">
-                  <thead>
-                    <tr className="border-b">
-                      <th className="text-left py-3 px-4 font-medium text-muted-foreground">Name</th>
-                      <th className="text-left py-3 px-4 font-medium text-muted-foreground">Position</th>
-                      <th className="text-left py-3 px-4 font-medium text-muted-foreground">Department</th>
-                      <th className="text-left py-3 px-4 font-medium text-muted-foreground">Email</th>
-                      <th className="text-left py-3 px-4 font-medium text-muted-foreground">Status</th>
-                      <th className="text-left py-3 px-4 font-medium text-muted-foreground">Action</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {employees.map((employee) => (
-                      <tr key={employee.id} className="border-b">
-                        <td className="py-3 px-4">
-                          <div className="flex items-center gap-3">
-                            <Avatar className="w-8 h-8">
-                              <AvatarFallback className="text-xs">
-                                {employee.first_name[0]}{employee.last_name[0]}
-                              </AvatarFallback>
-                            </Avatar>
-                            <span className="font-medium">{employee.first_name} {employee.last_name}</span>
-                          </div>
-                        </td>
-                        <td className="py-3 px-4 text-muted-foreground">{employee.position}</td>
-                        <td className="py-3 px-4 text-muted-foreground">{employee.department}</td>
-                        <td className="py-3 px-4 text-muted-foreground">email@company.com</td>
-                        <td className="py-3 px-4">
-                          <Badge variant="secondary" className="bg-green-100 text-green-800">
-                            Online
-                          </Badge>
-                        </td>
-                        <td className="py-3 px-4">
-                          <Button variant="ghost" size="icon">
-                            <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                              <path d="M10 6a2 2 0 110-4 2 2 0 010 4zM10 12a2 2 0 110-4 2 2 0 010 4zM10 18a2 2 0 110-4 2 2 0 010 4z" />
-                            </svg>
-                          </Button>
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-            </CardContent>
-          </Card>
         </div>
 
         {/* Right Section */}
