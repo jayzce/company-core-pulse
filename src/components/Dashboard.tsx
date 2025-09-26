@@ -56,30 +56,60 @@ export function Dashboard() {
 
   return (
     <div className="min-h-screen bg-background">
-      {/* Welcome Section */}
-      <div className="relative bg-gradient-to-r from-primary via-primary to-primary/80 rounded-2xl p-8 mb-8 overflow-hidden">
-        <div className="absolute top-0 right-0 w-32 h-32 opacity-20">
-          {/* Decorative lines */}
-          <svg viewBox="0 0 100 100" className="w-full h-full">
-            <path d="M20,20 Q80,10 90,80" stroke="white" strokeWidth="2" fill="none" />
-            <path d="M10,40 Q70,30 80,90" stroke="white" strokeWidth="1" fill="none" />
-          </svg>
+      {/* Welcome Section with Calendar */}
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-8">
+        {/* Welcome Card */}
+        <div className="lg:col-span-2">
+          <div className="relative bg-gradient-to-r from-primary via-primary to-primary/80 rounded-2xl p-8 overflow-hidden">
+            <div className="absolute top-0 right-0 w-32 h-32 opacity-20">
+              {/* Decorative lines */}
+              <svg viewBox="0 0 100 100" className="w-full h-full">
+                <path d="M20,20 Q80,10 90,80" stroke="white" strokeWidth="2" fill="none" />
+                <path d="M10,40 Q70,30 80,90" stroke="white" strokeWidth="1" fill="none" />
+              </svg>
+            </div>
+            <div className="flex items-center justify-between">
+              <div className="text-white">
+                <h1 className="text-3xl font-bold mb-2">Welcome, {userName}!</h1>
+                <p className="text-white/90 mb-6">You have 5 Pending task, lets see what you can do today!</p>
+                <Button className="bg-white text-primary hover:bg-white/90 rounded-lg px-6">
+                  Check Now
+                </Button>
+              </div>
+              <div className="hidden md:block">
+                <img 
+                  src="https://images.unsplash.com/photo-1494790108755-2616b612b786?w=200&h=200&fit=crop&crop=face" 
+                  alt="Welcome" 
+                  className="w-48 h-48 object-cover rounded-full"
+                />
+              </div>
+            </div>
+          </div>
         </div>
-        <div className="flex items-center justify-between">
-          <div className="text-white">
-            <h1 className="text-3xl font-bold mb-2">Welcome, {userName}!</h1>
-            <p className="text-white/90 mb-6">You have 5 Pending task, lets see what you can do today!</p>
-            <Button className="bg-white text-primary hover:bg-white/90 rounded-lg px-6">
-              Check Now
-            </Button>
-          </div>
-          <div className="hidden md:block">
-            <img 
-              src="https://images.unsplash.com/photo-1494790108755-2616b612b786?w=200&h=200&fit=crop&crop=face" 
-              alt="Welcome" 
-              className="w-48 h-48 object-cover rounded-full"
-            />
-          </div>
+
+        {/* Calendar */}
+        <div>
+          <Card>
+            <CardHeader className="flex flex-row items-center justify-between">
+              <div className="flex items-center gap-2">
+                <ChevronLeft className="w-4 h-4" />
+                <span className="font-medium">April 2022</span>
+                <ChevronRight className="w-4 h-4" />
+              </div>
+            </CardHeader>
+            <CardContent>
+              <Calendar
+                mode="single"
+                selected={selectedDate}
+                onSelect={setSelectedDate}
+                className="rounded-md"
+              />
+              <Button className="w-full mt-4" variant="outline">
+                <span className="mr-2">+</span>
+                Add Schedule
+              </Button>
+            </CardContent>
+          </Card>
         </div>
       </div>
 
@@ -307,28 +337,6 @@ export function Dashboard() {
 
         {/* Right Section */}
         <div className="space-y-6">
-          {/* Calendar */}
-          <Card>
-            <CardHeader className="flex flex-row items-center justify-between">
-              <div className="flex items-center gap-2">
-                <ChevronLeft className="w-4 h-4" />
-                <span className="font-medium">April 2022</span>
-                <ChevronRight className="w-4 h-4" />
-              </div>
-            </CardHeader>
-            <CardContent>
-              <Calendar
-                mode="single"
-                selected={selectedDate}
-                onSelect={setSelectedDate}
-                className="rounded-md"
-              />
-              <Button className="w-full mt-4" variant="outline">
-                <span className="mr-2">+</span>
-                Add Schedule
-              </Button>
-            </CardContent>
-          </Card>
 
           {/* Schedule & Holidays */}
           <Card>
